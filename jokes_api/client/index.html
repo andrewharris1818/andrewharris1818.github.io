@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="main.js"></script>
+    <title>Funny Funny Jokes</title>
+    <link rel="stylesheet" href="site.css">
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1 class="title has-text-centered mb-6 mt-2">Pick the language, the category and the number of jokes to hear</h1>
+        </div>
+    </header>
+    <main>
+        <div>
+            <div>
+                <form>
+                    <div>
+                        <div class="columns is-centered">
+                            <div class="column is-flex is-justify-content-center"id="fieldLanguage">
+                                <label class="subtitle mr-2">Language</label>
+                                <div>
+                                    <select class="select has-text-centered" name="language" id="selLang">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="column is-flex is-justify-content-center"id="fieldCategory">
+                                <label class="subtitle mr-2">Category</label>
+                                <div>
+                                    <select class="select has-text-centered" name="category" id="selCat">
+                                        <option value="any">any</option>
+                                        <option value="neutral">neutral</option>
+                                        <option value="chuck">chuck</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="column is-flex is-justify-content-center" id="fieldNumber">
+                                <label class="subtitle mr-2">Number</label>
+                                <div>
+                                    <select class="select has-text-centered" name="number" id="selNum">
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="column is-flex is-justify-content-center" id="fieldCustomJoke">
+                                <label class="subtitle mr-2">Joke id</label>
+                                <div>
+                                    <input type="number" class="input has-text-centered" name="Joke id" id="selCustomJoke">
+
+                                </input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <button class="button is-fullwidth is-primary" type="submit" id="btnAmuse">Amuse me</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div>
+            <div id="jokesContent">
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
