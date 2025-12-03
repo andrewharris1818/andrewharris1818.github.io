@@ -1,0 +1,27 @@
+<!-- team.jinja -->
+{% extends "index.jinja" %}
+{% block content %}
+  <a href="{{url_for('edit.dashboard')}}" class=" button is-info">Dashboard</a>
+<section class="section">
+
+  <h2 class="title">Creative Team for {{ production.title }}</h2>
+  <form method="POST">
+    <input type="hidden" name="production_id" value="{{ production.id }}">
+    <div class="field">
+      <label class="label">Name</label>
+      <input class="input" type="text" name="name" required>
+    </div>
+    <div class="field">
+      <label class="label">Role</label>
+      <input class="input" type="text" name="role">
+    </div>
+    <button class="button is-primary" type="submit">Add Team Member</button>
+  </form>
+  <hr>
+  <ul>
+    {% for t in team %}
+      <li>{{ t.name }} — {{ t.role }}</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock content %}

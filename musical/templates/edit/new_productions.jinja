@@ -1,0 +1,62 @@
+{% extends "index.jinja" %}
+
+{% block content %}
+  <a href="{{url_for('edit.dashboard')}}" class=" button is-info">Dashboard</a>
+<section class="section">
+  <h2 class="title">Add New Production</h2>
+  <form method="POST">
+    <div class="field">
+      <label class="label">Title</label>
+      <div class="control">
+        <input class="input" type="text" name="title" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Subtitle</label>
+      <div class="control">
+        <input class="input" type="text" name="subtitle">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Cover Image URL</label>
+      <div class="control">
+        <input class="input" type="text" name="cover_image">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Location</label>
+      <div class="control">
+        <input class="input" type="text" name="location">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Price</label>
+      <div class="control">
+        <input class="input" type="text" name="price">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Copyright Info</label>
+      <div class="control">
+        <input class="input" type="text" name="copyright">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Notes</label>
+      <div class="control">
+        <textarea class="textarea" name="notes"></textarea>
+      </div>
+    </div>
+
+    <div class="control">
+      <button class="button is-primary" type="submit">Save</button>
+    </div>
+  </form>
+</section>
+{% endblock content %}

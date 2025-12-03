@@ -1,0 +1,33 @@
+{% extends "index.jinja" %}
+
+{% block content %}
+
+  <a href="{{url_for('edit.dashboard')}}" class=" button is-info">Dashboard</a>
+<section class="section">
+  <h2 class="title">Productions</h2>
+  <a href="{{ url_for('edit.new_production') }}" class="button is-primary">Add New Production</a>
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Subtitle</th>
+        <th>Location</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for prod in productions %}
+      <tr>
+        <td>{{ prod.title }}</td>
+        <td>{{ prod.subtitle }}</td>
+        <td>{{ prod.location }}</td>
+        <td>
+          <a href="{{ url_for('edit.edit_production', production_id=prod.id) }}" class="button is-small is-info">Edit</a>
+          <a href="#" class="button is-small is-danger">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock content %}

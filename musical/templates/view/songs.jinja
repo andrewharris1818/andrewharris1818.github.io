@@ -1,0 +1,34 @@
+{% extends "index.jinja" %}
+
+{% block content %}
+<a href="{{url_for('view.production',production_id=production.id)}}" class=" button is-info">Back to pamphlet</a>
+
+<section class="section has-text-centered">
+  <h1 class="title">Songs for {{ production.title }}</h1>
+
+  {% if songs_by_act %}
+    {% for act, songs_in_act in songs_by_act.items()|sort %}
+      <h2 class="title is-4">Act {{ act }}</h2>
+      <ul class="is-inline-block">
+        {% for song in songs_in_act %}
+          <li>
+            {{ song.title }}
+            {% if song.is_reprise %}(Reprise){% endif %}
+            — Sung by {{ song.who_sings }}
+          </li>
+        {% endfor %}
+      </ul>
+
+      {% if not loop.last%}
+        
+        <p class="has-text-grey m-5">
+          <em>Intermission — "15 minutes"</em>
+        </p>
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <p>No songs defined yet.</p>
+  {% endif %}
+</section>
+{% endblock content %}
+

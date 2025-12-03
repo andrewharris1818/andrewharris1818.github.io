@@ -1,0 +1,17 @@
+{% extends "index.jinja" %}
+{% block content %}
+  <a href="{{url_for('view.production',production_id=production.id)}}" class=" button is-info">Back to pamphlet</a>
+
+<section class="section has-text-centered">
+  <h2 class="title">Notes</h2>
+  <p>{{production.notes}}</p>
+  <h2 class="title">Special Thanks</h2>
+  <ul>
+    {% for t in thanks %}
+      <li>{{ t.thanks_text }}</li>
+    {% else %}
+      <li>No acknowledgments yet.</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock content %}

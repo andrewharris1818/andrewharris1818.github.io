@@ -1,0 +1,33 @@
+{% extends "index.jinja" %}
+
+{% block content %}
+  <a href="{{url_for('view.production',production_id=production.id)}}" class=" button is-info">Back to pamphlet</a>
+
+<section class="section has-text-centered">
+  <h2 class="title m-6">Cast of {{ production.title }}</h2>
+
+  <h3 class="subtitle">Individual Roles</h3>
+  <ul>
+    {% for role in individual_roles %}
+      <li>
+        <strong>{{ role.name }}</strong> —{{role.actor}}
+        {% for student in role.students %}
+          {{ student.name }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h3 class="subtitle">Group Roles</h3>
+  <ul>
+    {% for role in group_roles %}
+      <li>
+        <strong>{{ role.name }}</strong> —{{role.actor}}
+        {% for student in role.students %}
+          {{ student.name }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock content %}

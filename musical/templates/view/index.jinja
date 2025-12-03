@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Musical Program{% endblock title %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='stage_icon.ico') }}">
+  <!-- Bulma CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <p class="navbar-item" >
+        🎭 Musical Program
+    </p>
+  </div>
+
+  <div class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="{{ url_for('edit.dashboard') }}">Director</a>
+      <a class="navbar-item" href="{{ url_for('view.index') }}">Reader</a>
+    </div>
+  </div>
+</nav>
+<br>
+<h1 class="title has-text-centered">Welcome to the historical theater records</h1>
+<!-- Production Picker -->
+      <div class="navbar-item">
+        <div class="select is-fullwidth">
+          <select id="productionSelect">
+            <option class="has-text-centered" value="">Select a production...</option>
+            {% for production in productions %}
+              <option value="{{ url_for('view.production', production_id=production.id) }}">
+                {{ production.title }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+<script>
+  document.getElementById('productionSelect').addEventListener('change', function() {
+    if (this.value) {
+      window.location.href = this.value;
+    }
+  });
+</script>
+</body>
+</html>

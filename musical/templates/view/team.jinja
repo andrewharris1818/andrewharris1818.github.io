@@ -1,0 +1,16 @@
+{% extends "index.jinja" %}
+
+{% block content %}
+  <a href="{{url_for('view.production',production_id=production.id)}}" class=" button is-info">Back to pamphlet</a>
+
+<section class="section has-text-centered">
+  <h2 class="title">Creative Team</h2>
+  <ul>
+    {% for member in production.team %}
+      <li>
+        <strong>{{ member.role }}</strong> —{{member.name}}
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock content %}

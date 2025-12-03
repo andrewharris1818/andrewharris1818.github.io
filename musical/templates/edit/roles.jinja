@@ -1,0 +1,76 @@
+{% extends "index.jinja" %}
+{% block content %}
+  <a href="{{url_for('edit.dashboard')}}" class=" button is-info">Dashboard</a>
+
+<section class="section">
+  <h2 class="title">Roles for {{ production.title }}</h2>
+
+  <!-- Add Role -->
+  <form method="POST">
+    <input type="hidden" name="production_id" value="{{ production.id }}">
+
+    <div class="field">
+      <label class="label">Role Name</label>
+      <input class="input" type="text" name="name" required>
+    </div>
+
+    <div class="field">
+      <label class="label">Actor</label>
+      <div class="select">
+        <select name="actor" required>
+          <option value="">Select a student...</option>
+          {% for student in students %}
+            <option value="{{ student.name }}">{{ student.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="checkbox">
+        <input type="checkbox" name="is_group"> Group Role
+      </label>
+    </div>
+
+    <div class="field">
+      <label class="label">Display Order</label>
+      <input class="input" type="number" name="display_order" value="1" min="1">
+    </div>
+
+    <button class="button is-primary" type="submit">Add Role</button>
+  </form>
+
+  <hr>
+
+  <!-- Existing Roles -->
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Actor</th>
+        <th>Group?</th>
+        <th>Order</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for role in roles %}
+      <tr>
+        <td>{{ role.name }}</td>
+        <td>{{ role.actor }}</td>
+        <td>{{ 'Yes' if role.is_group else 'No' }}</td>
+        <td>{{ role.display_order }}</td>
+        <td>
+          <form method="POST" action="{{ url_for('edit.roles', production_id=production.id) }}" style="display:inline;">
+            <input type="hidden" name="delete_role_id" value="{{ role.id }}">
+            <button class="button is-small is-danger" type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5">No roles yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock content %}

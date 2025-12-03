@@ -1,0 +1,97 @@
+{% extends "index.jinja" %}
+
+{% block content %}
+<a class="button is-info" href="{{ url_for('view.index') }}">pick a different musical</a>
+
+<p class="has-text-centered"> Click on a title to see just that section!</p>
+<section class="section has-text-centered">
+  <h1 class="title">{{ production.title }}</h1>
+  <p class="subtitle m-1">{{ production.subtitle }}</p>
+  <p><strong>Location:</strong> {{ production.location }}</p>
+  <p><strong>Price:</strong> {{ production.price }}</p>
+  {% if production.cover_image %}
+    <img src="{{ production.cover_image }}">
+  {% endif%}
+
+  
+
+  <!-- Cast -->
+  <a class="has-text-centered m-3" href="{{ url_for('view.cast',production_id=production.id) }}">
+  <h2 class="title is-4">Cast</h2>
+  </a>
+  <ul>
+    {% for role in production.roles %}
+      <li>{{ role.name }} — {{ role.actor }}</li>
+    {% else %}
+      <li>No roles defined yet.</li>
+    {% endfor %}
+  </ul>
+
+<!-- Stage Crew/Tech -->
+<a class="has-text-centered m-3" href="{{ url_for('view.crew',production_id=production.id) }}">
+<h2 class="title is-4">Stage Crew/Tech</h2>
+</a>
+<ul>
+  {% for c in production.crew %}
+    <li>{{ c.name }} — {{ c.responsibility }}</li>
+  {% else %}
+    <li>No crew listed yet.</li>
+  {% endfor %}
+</ul>
+
+<!-- Creative Team -->
+<a class="has-text-centered m-3" href="{{ url_for('view.team',production_id=production.id) }}">
+<h2 class="title is-4">Creative Team</h2>
+</a>
+<ul>
+  {% for t in production.team %}
+    <li>{{ t.role }} — {{ t.name }}</li>
+  {% else %}
+    <li>No creative team listed yet.</li>
+  {% endfor %}
+</ul>
+
+  <!-- Songs grouped by act -->
+  <a class="has-text-centered m-3" href="{{ url_for('view.songs',production_id=production.id) }}">
+  <h2 class="title is-4">Song List</h2>
+  </a>
+  {% set acts = {} %}
+  {% for song in production.songs %}
+    {% set _ = acts.setdefault(song.act_number, []).append(song) %}
+  {% endfor %}
+
+  {% for act, songs_in_act in acts.items()|sort %}
+    <h3 class="title is-5">Act {{ act }}</h3>
+    <ul>
+      {% for song in songs_in_act %}
+        <li>
+          {{ song.title }}
+          {% if song.is_reprise %}(Reprise){% endif %}
+          — Sung by {{ song.who_sings }}
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% if loop.last == false and production.dates and production.dates[0].intermission_length %}
+      <p class="has-text-centered has-text-grey">
+        <em>Intermission — {{ production.dates[0].intermission_length }}</em>
+      </p>
+    {% endif %}
+  {% else %}
+    <p>No songs defined yet.</p>
+  {% endfor %}
+
+  <!-- Notes -->
+  <a class="has-text-centered m-3" href="{{ url_for('view.thanks',production_id=production.id) }}">
+  <h2 class="title is-4">Notes/Thanks</h2>
+  </a>
+  <p>{{ production.notes or "No notes available." }}</p>
+  <ul>
+    {% for t in production.thanks %}
+      <li>{{ t.thanks_text }}</li>
+    {% else %}
+      <li>No acknowledgments yet.</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock content %}

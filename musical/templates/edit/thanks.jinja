@@ -1,0 +1,32 @@
+{% extends "index.jinja" %}
+
+{% block content %}
+  <a href="{{url_for('edit.dashboard')}}" class=" button is-info">Dashboard</a>
+
+<section class="section">
+  <h2 class="title">Acknowledgments for {{ production.title }}</h2>
+
+  <!-- Existing Thanks -->
+  {% if production.thanks %}
+    <ul>
+      {% for t in production.thanks %}
+        <li>{{ t.thanks_text }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No acknowledgments yet.</p>
+  {% endif %}
+
+  <!-- Add New Thanks -->
+  <form method="POST">
+    <input type="hidden" name="production_id" value="{{ production.id }}">
+    <div class="field">
+      <label class="label">Thanks Text</label>
+      <div class="control">
+        <textarea class="textarea" name="thanks_text"></textarea>
+      </div>
+    </div>
+    <button class="button is-primary" type="submit">Save</button>
+  </form>
+</section>
+{% endblock content %}

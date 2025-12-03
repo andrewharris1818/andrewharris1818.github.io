@@ -1,0 +1,78 @@
+{% extends "index.jinja" %}
+
+{% block content %}
+  <a href="{{url_for('edit.dashboard')}}" class=" button is-info">Dashboard</a>
+<section class="section">
+
+  <h2 class="title">Songs for {{ production.title }}</h2>
+
+  <!-- Add New Song -->
+  <form method="POST">
+    <!-- Hidden production_id -->
+    <input type="hidden" name="production_id" value="{{ production.id }}">
+
+    <div class="field">
+      <label class="label">Song Title</label>
+      <div class="control">
+        <input class="input" type="text" name="title" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Act Number</label>
+      <div class="control">
+        <input class="input" type="number" name="act_number" value="1" min="1">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Who Sings</label>
+      <div class="control">
+        <input class="input" type="text" name="who_sings" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="checkbox">
+        <input type="checkbox" name="is_reprise"> Reprise
+      </label>
+    </div>
+
+    <button class="button is-primary" type="submit">Add Song</button>
+  </form>
+
+  <hr>
+
+  <!-- Existing Songs -->
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Act</th>
+        <th>Who Sings</th>
+        <th>Reprise?</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for song in songs %}
+      <tr>
+        <td>{{ song.title }}</td>
+        <td>{{ song.act_number }}</td>
+        <td>{{ song.who_sings }}</td>
+        <td>{{ 'Yes' if song.is_reprise else 'No' }}</td>
+        <td>
+          <!-- Placeholder actions until edit/delete routes exist -->
+          <a href="{{ url_for('edit.songs', production_id=production.id) }}" 
+             class="button is-small is-info">Edit</a>
+          <form method="POST" action="{{ url_for('edit.songs', production_id=production.id) }}" style="display:inline;">
+            <input type="hidden" name="delete_song_id" value="{{ song.id }}">
+            <button class="button is-small is-danger" type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock content %}

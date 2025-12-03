@@ -1,0 +1,54 @@
+{% extends "index.jinja" %}
+
+{% block content %}
+<section class="section">
+  <h2 class="title">Director Dashboard</h2>
+
+  <table class="table is-fullwidth is-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Location</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for production in productions %}
+      <tr>
+        <td>{{ production.title }}</td>
+        <td>{{ production.location }}</td>
+        <td>
+          <a class="button is-small is-link"
+             href="{{ url_for('edit.roles', production_id=production.id) }}">
+            Roles
+          </a>
+          <a class="button is-small is-info"
+             href="{{ url_for('edit.songs', production_id=production.id) }}">
+            Songs
+          </a>
+          <a class="button is-small is-warning"
+             href="{{ url_for('edit.thanks', production_id=production.id) }}">
+            Thanks
+          </a>
+          <a class="button is-small is-primary"
+             href="{{ url_for('edit.crew', production_id=production.id) }}">
+            Crew
+          </a>
+          <a class="button is-small is-dark"
+             href="{{ url_for('edit.team', production_id=production.id) }}">
+            Team
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a class="button is-success" href="{{ url_for('edit.new_production') }}">
+    + Add New Production
+  </a>
+  <a class="button is-danger" href="{{ url_for('edit.productions') }}">
+    + edit/remove Productions
+  </a>
+</section>
+{% endblock content %}
